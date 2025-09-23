@@ -138,10 +138,30 @@ Ao final desta etapa, são exibidas:
 > ```
 
 ## 6. Processamento de Dados  
-Detalhamos as transformações finais e operações realizadas nos dados antes do início dos treinamentos, garantindo que as entradas estejam no formato correto.  
 
+Após o pré-processamento (limpeza, codificação e divisão treino/teste), os dados já se encontram no formato adequado para serem utilizados pelo modelo SVM.  
+Não foi necessário aplicar transformações adicionais nesta etapa; assim, seguimos diretamente para o treinamento do classificador.
+  
 ## 7. Treino de Dados com Kernel Linear  
-Mostramos o treinamento do modelo SVM utilizando Kernel Linear, explicando as vantagens desse kernel em diferentes cenários.  
+
+Nesta etapa, treinamos o modelo **SVM** utilizando **kernel linear**.  
+O kernel linear busca encontrar um **hiperplano que melhor separa as classes** (benigno e maligno) maximizando a margem entre elas.  
+
+- **Treinamento:** o modelo recebe os dados `X_train` e `y_train` e ajusta os parâmetros para encontrar o hiperplano ótimo.  
+- **Predição:** após treinado, aplicamos `model.predict(X_test)` para prever os rótulos das amostras de teste.  
+- **Avaliação:** comparamos `y_pred` com `y_test` para calcular a **acurácia** e visualizamos a **matriz de confusão**, que detalha:
+  - Verdadeiros positivos (maligno corretamente detectado)  
+  - Verdadeiros negativos (benigno corretamente detectado)  
+  - Falsos positivos (benigno classificado como maligno)  
+  - Falsos negativos (maligno classificado como benigno)  
+
+Esse detalhamento é importante em contextos médicos, pois nem todos os erros têm o mesmo impacto.  
+
+Além da acurácia, também exibimos:
+- As **10 primeiras previsões** comparadas aos rótulos reais.
+- A **matriz de confusão**, que mostra a qualidade da classificação em cada classe.
+
+![Matriz de Confusão Kernel Linear](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/matriz_linear.png) 
 
 ## 8. Treino de Dados com Kernel Não-linear (RBF)  
 Apresentamos o treinamento do modelo SVM utilizando o Kernel RBF, destacando suas diferenças em relação ao Kernel Linear e quando seu uso é indicado.  
