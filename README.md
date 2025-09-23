@@ -87,13 +87,55 @@ bc = pd.read_csv('Breast_Cancer_Wisconsin.csv')
 bc.head()
 ```
 ## 3. Tratamento do Dataset  
-Explicamos quais modificações foram realizadas no dataset antes da manipulação, descrevendo a justificativa para cada alteração para garantir a consistência dos dados.  
 
+Antes do pré-processamento, algumas colunas não relevantes foram removidas para garantir que o modelo trabalhasse apenas com os **30 atributos numéricos significativos**.  
+
+- **`id`**: identificador do paciente, não influencia no diagnóstico.  
+- **`Unnamed: 32`**: coluna vazia (resíduo do CSV).  
+
+Essa limpeza evita que informações irrelevantes ou nulas interfiram no treinamento do modelo.  
+
+> *Exemplo de código:*  
+> ```python
+> bc.drop(['Unnamed: 32','id'], axis=1, inplace=True)
+> ```
+
+---
 ## 4. Pré-processamento de Dados (Parte 1)  
-Descrevemos as técnicas iniciais aplicadas para preparar os dados para análise, como limpeza, codificação e normalização.  
 
+Em seguida, os dados foram organizados em:  
+
+- **`X`**: todos os atributos numéricos (variáveis independentes).  
+- **`y`**: coluna `diagnosis`, contendo os rótulos **Maligno (M)** ou **Benigno (B)** (variável-alvo).  
+
+Separar atributos e alvo é essencial para alimentar corretamente os algoritmos de aprendizado.  
+
+> *Exemplo de código:*  
+> ```python
+> X = bc.loc[:, bc.columns != "diagnosis"]
+> y = bc.loc[:, "diagnosis"]
+> ```
+
+---
 ## 5. Pré-processamento de Dados (Parte 2 – Divisão do Treino)  
-Apresentamos o processo de divisão do conjunto de dados entre treino e teste, explicando a importância dessa etapa para a avaliação de modelos.  
+
+O conjunto de dados foi dividido em **80% para treino** e **20% para teste** usando `train_test_split` com o parâmetro `stratify=y`.  
+A estratificação garante que a proporção entre classes (M e B) seja mantida em ambos os conjuntos, evitando que um deles fique desbalanceado.  
+
+Como os rótulos estavam em formato de string, foi usado `pd.factorize()` para convertê-los em inteiros (0 e 1), facilitando o uso de funções como `np.bincount` e garantindo compatibilidade com algoritmos de aprendizado.  
+
+Ao final desta etapa, são exibidas:  
+- **As dimensões de treino e teste** (quantidade de amostras e atributos).  
+- **A distribuição das classes** em cada conjunto, validando que a separação representativa foi respeitada.  
+
+> *Exemplo de código resumido:*  
+> ```python
+> X_train, X_test, y_train, y_test = train_test_split(
+>     X, y, test_size=0.2, random_state=RANDOM_STATE, stratify=y)
+>
+> y_train_num, _ = pd.factorize(y_train)
+> y_test_num, _ = pd.factorize(y_test)
+> ```
 
 ## 6. Processamento de Dados  
 Detalhamos as transformações finais e operações realizadas nos dados antes do início dos treinamentos, garantindo que as entradas estejam no formato correto.  
