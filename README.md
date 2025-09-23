@@ -77,9 +77,9 @@ No Google Colab, é possível carregar o arquivo CSV diretamente do seu computad
 2. Clique em “Upload” e selecione o arquivo `Breast_Cancer_Wisconsin.csv` do seu computador.  
 3. Após o upload, o arquivo aparecerá na lista de arquivos disponíveis.  
 
-![Print1 - Abrir painel de arquivos](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/upload_dataset1.pngraw=true)  
-![Print2 - Botão Upload](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/upload_dataset2.pngraw=true)  
-![Print3 - Arquivo carregado no Colab](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/upload_dataset3.pngraw=true)  
+![Print1 - Abrir painel de arquivos](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/upload_dataset1.png)  
+![Print2 - Botão Upload](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/upload_dataset2.png)  
+![Print3 - Arquivo carregado no Colab](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/upload_dataset3.png)  
 
 Depois disso, execute o código abaixo para ler o arquivo e visualizar as primeiras linhas:  
 
