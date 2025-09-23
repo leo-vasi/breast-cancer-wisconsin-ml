@@ -164,8 +164,26 @@ Além da acurácia, também exibimos:
 ![Matriz de Confusão Kernel Linear](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/matriz_linear.png) 
 
 ## 8. Treino de Dados com Kernel Não-linear (RBF)  
-Apresentamos o treinamento do modelo SVM utilizando o Kernel RBF, destacando suas diferenças em relação ao Kernel Linear e quando seu uso é indicado.  
 
+Nesta etapa, treinamos um **SVM com kernel RBF (Radial Basis Function)**.  
+Diferente do kernel linear, o RBF consegue capturar relações **não-lineares** entre os atributos, permitindo separar classes que não são perfeitamente divididas por um único hiperplano.  
+Essa flexibilidade torna o kernel RBF indicado para **cenários mais complexos**, em que as fronteiras de decisão são curvas ou não-lineares.
+
+O fluxo é o mesmo utilizado no modelo linear:
+
+1. **Treinamento:** o modelo recebe `X_train` e `y_train` e ajusta os parâmetros para criar uma superfície de decisão não-linear.  
+2. **Predição:** aplicamos `model.predict(X_test)` para prever os rótulos das amostras de teste.  
+3. **Avaliação:** comparamos `y_pred` com `y_test` para calcular a **acurácia**.  
+4. **Matriz de Confusão:** visualizamos os resultados para entender onde o modelo acerta e erra:  
+   - Verdadeiros positivos (maligno corretamente detectado)  
+   - Verdadeiros negativos (benigno corretamente detectado)  
+   - Falsos positivos (benigno classificado como maligno)  
+   - Falsos negativos (maligno classificado como benigno)
+
+Essa análise ajuda a compreender como o uso de um kernel não-linear influencia o desempenho do classificador SVM no diagnóstico do câncer de mama.
+
+![Matriz de Confusão Kernel RBF](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/matriz_rbf.png)
+  
 ## 9. StratifiedKFold (K=10) com GridSearchCV – Apenas Kernel (SKF-10)  
 Nesta etapa aplicamos validação cruzada estratificada com 10 folds, ajustando apenas o Kernel para encontrar melhores resultados.  
 
