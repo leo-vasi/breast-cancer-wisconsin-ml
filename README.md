@@ -83,7 +83,6 @@ No Google Colab, é possível carregar o arquivo CSV diretamente do seu computad
 Depois disso, execute o bloco abaixo para ler o arquivo e visualizar as primeiras linhas:  
 
 ```python
-import pandas as pd
 bc = pd.read_csv('Breast_Cancer_Wisconsin.csv')
 bc.head()
 ```
