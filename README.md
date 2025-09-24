@@ -13,7 +13,7 @@ O conjunto de dados utilizado possui **569 amostras e 30 atributos numéricos**,
 ### Executando este notebook online
 Este projeto foi inteiramente desenvolvido no Google Colab.
 Mesmo o arquvio ipynb estando neste repositório, recomendamos que você também o execute por lá para reproduzir os resultados de uma maneira mais fiel a nossa experiência.
-* <a href="LINK_DO_NOTEBOOK_NO_COLAB" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+* <a href="https://colab.research.google.com/drive/1bKBtG230bF6XtyLlrXvE4syhPJkybr-W?usp=sharing" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ⚠ _O Colab oferece um ambiente temporário: tudo o que você fizer será excluído depois de um tempo, portanto, certifique-se de salvar todos os dados que lhe interessam._
 
@@ -160,8 +160,13 @@ Esse detalhamento é importante em contextos médicos, pois nem todos os erros t
 Além da acurácia, também exibimos:
 - As **10 primeiras previsões** comparadas aos rótulos reais.
 - A **matriz de confusão**, que mostra a qualidade da classificação em cada classe.
+- 
+*[Breast Cancer] Linear — **Acurácia: 92.11%***
 
 ![Matriz de Confusão Kernel Linear](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/matriz_linear.png) 
+
+* **Preditos (10):** ['B' 'M' 'B' 'B' 'M' 'B' 'B' 'B' 'B' 'B']
+* **Reais (10):** ['B' 'M' 'B' 'M' 'B' 'B' 'M' 'B' 'B' 'B']
 
 ## 8. Treino de Dados com Kernel Não-linear (RBF)  
 
@@ -182,16 +187,87 @@ O fluxo é o mesmo utilizado no modelo linear:
 
 Essa análise ajuda a compreender como o uso de um kernel não-linear influencia o desempenho do classificador SVM no diagnóstico do câncer de mama.
 
+*[Breast Cancer] RBF — **Acurácia: 90.35%***
+
 ![Matriz de Confusão Kernel RBF](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/matriz_rbf.png)
-  
+
+* **Preditos (10):** ['B' 'M' 'B' 'B' 'B' 'B' 'B' 'B' 'B' 'B']
+* **Reais (10):** ['B' 'M' 'B' 'M' 'B' 'B' 'M' 'B' 'B' 'B']
+
 ## 9. StratifiedKFold (K=10) com GridSearchCV – Apenas Kernel (SKF-10)  
-Nesta etapa aplicamos validação cruzada estratificada com 10 folds, ajustando apenas o Kernel para encontrar melhores resultados.  
+
+Nesta etapa aplicamos **validação cruzada estratificada com 10 dobras (folds)** para avaliar diferentes kernels do SVM e escolher aquele com melhor desempenho médio.  
+O objetivo aqui é **testar apenas o parâmetro `kernel`** sem mexer nos demais hiperparâmetros (C e gamma), isolando o impacto da escolha do kernel.
+
+Fluxo da etapa:
+
+1. **Definição do modelo:** utilizamos `SVC(random_state=RANDOM_STATE)` como modelo base.  
+2. **Parâmetros testados:** `kernel` em `['linear', 'rbf', 'poly', 'sigmoid']`.  
+3. **Validação cruzada estratificada:** cada kernel é avaliado em **10 dobras**, preservando a proporção entre as classes benigno e maligno em cada partição.  
+4. **Escolha do melhor kernel:** o **GridSearchCV** seleciona automaticamente o kernel com maior média de acurácia nas dobras.  
+5. **Predição e avaliação final:** aplicamos o kernel selecionado ao conjunto de teste, calculamos a **acurácia** e geramos a **matriz de confusão** para entender os acertos e erros do modelo.
+
+Essa etapa mostra como a simples variação do kernel pode alterar o desempenho do SVM no diagnóstico de câncer de mama.
+
+![Matriz de Confusão Kernel StratifiedKFold-10](img/matriz_kernel_skf10.png)
+
 
 ## 10. StratifiedKFold (K=10) com GridSearchCV – Kernel, C e Gamma (SKF-10)  
-Expandimos a busca para incluir também os parâmetros C e Gamma, explicando o impacto dessas variações no desempenho do modelo.  
+
+Nesta etapa expandimos a busca para incluir não apenas o **kernel**, mas também os hiperparâmetros **C** e **gamma**, tornando a otimização mais completa.  
+O objetivo é encontrar a combinação mais eficaz entre os três parâmetros utilizando **validação cruzada estratificada com 10 dobras (SKF-10)**.
+
+Fluxo da etapa:
+
+1. **Definição do modelo:** `SVC(random_state=RANDOM_STATE)` como base.  
+2. **Parâmetros testados:**  
+   - `kernel`: define o tipo de fronteira de decisão (`linear`, `rbf`, `poly`, `sigmoid`).  
+   - `C`: parâmetro de regularização; controla o **trade-off** entre margem mais ampla e penalização de erros.  
+   - `gamma`: controla a **curvatura** da fronteira de decisão para kernels não-lineares.  
+3. **Validação cruzada estratificada:** cada combinação é avaliada em **10 dobras**, mantendo a proporção entre classes benigno/maligno.  
+4. **Seleção da melhor combinação:** o GridSearchCV retorna automaticamente o conjunto de parâmetros com maior média de acurácia nas dobras.  
+5. **Predição e avaliação final:** aplicamos os melhores parâmetros no conjunto de teste, calculamos a **acurácia** e geramos a **matriz de confusão** para detalhar os acertos e erros do modelo.
+
+Essa etapa demonstra como ajustes simultâneos em kernel, C e gamma podem melhorar significativamente o desempenho do SVM.
+
+![Matriz de Confusão Kernel+C+Gamma StratifiedKFold-10](img/matriz_kernel_c_gamma_skf10.png) 
 
 ## 11. Varredura de Parâmetros (C e Gamma) – SKF-10  
-Mostramos os resultados obtidos ao variar os parâmetros C e Gamma com validação estratificada em 10 folds.  
+
+Nesta etapa realizamos uma **análise sistemática dos hiperparâmetros** do SVM para entender seu impacto no desempenho do modelo, usando **validação cruzada estratificada de 10 dobras (SKF-10)**.
+
+### 11.1 Variação de C no Kernel Linear  
+Primeiro investigamos o efeito do parâmetro **C** em um **SVM linear**:  
+
+- **C (regularização):** controla o balanço entre:
+  - **Margem mais ampla com tolerância a erros** (C pequeno).  
+  - **Margem mais estreita com penalização mais rígida de erros** (C grande).  
+
+Para cada valor de C em `[0.01, 0.1, 1, 10, 100]`:  
+1. Criamos um modelo `SVC(kernel='linear', C=C)`.  
+2. Avaliamos o modelo com **validação cruzada estratificada de 10 dobras**, preservando a proporção de classes benigno/maligno em cada dobra.  
+3. Calculamos a **média das acurácias** obtidas nas dobras.  
+
+Esse teste mostra como a regularização afeta o equilíbrio entre **simplicidade do modelo** e **adaptação aos dados de treino**.
+
+---
+
+### 11.2 Variação de C e Gamma no Kernel RBF  
+Em seguida, analisamos a combinação dos parâmetros **C** e **gamma** no **SVM com kernel RBF**:  
+
+- **C (regularização):** mesmo papel descrito acima.  
+- **Gamma:** define a influência de cada ponto de treino na fronteira de decisão:  
+  - **Gamma alto** → o modelo “segue” mais de perto os pontos de treino (fronteira mais detalhada/irregular).  
+  - **Gamma baixo** → o modelo considera o conjunto de forma mais geral (fronteira mais suave/regular).  
+
+Para cada combinação de C e gamma:  
+1. Criamos um `SVC(kernel='rbf', C=C, gamma=gamma)`.  
+2. Avaliamos o modelo com **validação cruzada estratificada de 10 dobras**.  
+3. Calculamos a **média das acurácias** obtidas.  
+
+Esse procedimento ajuda a visualizar **como o ajuste simultâneo de C e gamma influencia a capacidade do SVM RBF de generalizar**.
+
+![Gráfico da varredura C e Gamma](img/varredura_c_gamma_skf10.png)
 
 ## 12. StratifiedKFold (K=12) com GridSearchCV – Apenas Kernel (SKF-12)  
 Repetimos o processo anterior, agora utilizando 12 folds para validar o impacto do aumento no número de partições.  
