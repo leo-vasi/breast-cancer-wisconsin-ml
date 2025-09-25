@@ -269,11 +269,67 @@ Esse procedimento ajuda a visualizar **como o ajuste simultâneo de C e gamma in
 
 ![Gráfico da varredura C e Gamma](img/varredura_c_gamma_skf10.png)
 
-## 12. StratifiedKFold (K=12) com GridSearchCV – Apenas Kernel (SKF-12)  
-Repetimos o processo anterior, agora utilizando 12 folds para validar o impacto do aumento no número de partições.  
+## 12. StratifiedKFold (K=12) com GridSearchCV – Apenas Kernel (SKF-12)
 
-## 13. StratifiedKFold (K=12) com GridSearchCV – Kernel, C e Gamma (SKF-12)  
-Aplicamos novamente GridSearchCV variando Kernel, C e Gamma, explicando as diferenças encontradas em relação ao teste com 10 folds.  
+Nesta etapa repetimos a busca pelo **melhor kernel**, agora utilizando **validação cruzada estratificada de 12 dobras (SKF-12)**.  
+O objetivo é verificar se **aumentar o número de partições** impacta a escolha do kernel ou melhora a estabilidade das métricas obtidas.
 
-## 14. Varredura de Parâmetros – StratifiedKFold (K=12)  
-Por fim, mostramos a variação dos parâmetros com validação estratificada em 12 folds, consolidando os resultados para análise final.  
+**Resumo:**
+
+- **Objetivo:** avaliar se alterar o número de dobras (de 10 para 12) muda os resultados do GridSearch.  
+- **Modelo base:** `SVC(random_state=RANDOM_STATE)`  
+- **Kernels testados:** `linear`, `rbf`, `poly` e `sigmoid`  
+- **Validação cruzada:** cada kernel é avaliado em **12 dobras**, preservando a proporção de classes benigno/maligno.  
+
+**Avaliação após encontrar o melhor kernel:**
+
+- **Acurácia:** proporção de classificações corretas no teste.  
+- **Matriz de confusão:** detalha verdadeiros positivos/negativos e erros, permitindo comparar o desempenho entre **K=10** e **K=12**.  
+
+---
+
+## 13. StratifiedKFold (K=12) com GridSearchCV – Kernel, C e Gamma (SKF-12)
+
+Nesta etapa aplicamos um **GridSearch completo**, agora utilizando **validação cruzada estratificada de 12 dobras (SKF-12)** para identificar a **melhor combinação de parâmetros** para o SVM.  
+O objetivo é avaliar se o **aumento do número de dobras (de 10 para 12)** altera as combinações ótimas e o desempenho obtido.
+
+**Parâmetros testados:**
+
+- **`kernel`**: define o tipo de fronteira de decisão (`linear`, `rbf`, `poly`, `sigmoid`)  
+- **`C`**: parâmetro de regularização, controla o **trade-off entre margem ampla e penalização de erros**  
+- **`gamma`**: influencia a **curvatura da fronteira de decisão** para kernels não-lineares  
+
+**Processo:**
+
+- Cada combinação de **kernel**, **C** e **gamma** é avaliada em **12 dobras**, preservando a proporção de classes benigno/maligno em cada partição.  
+- O **GridSearchCV** identifica a **melhor combinação de parâmetros** com base na acurácia média das dobras.  
+- O modelo ajustado com essa combinação é aplicado ao conjunto de teste.  
+
+**Avaliação:**
+
+- **Acurácia no teste:** proporção de classificações corretas.  
+- **Matriz de confusão:** mostra a qualidade das previsões (verdadeiros positivos/negativos e erros), permitindo comparar resultados com o cenário **K=10**.  
+
+
+## 14. Varredura de Parâmetros – StratifiedKFold (K=12)
+
+Por fim, realizamos uma **varredura sistemática dos parâmetros** utilizando **validação cruzada estratificada de 12 dobras (SKF-12)**, consolidando os resultados para análise final.  
+O foco é observar como a variação dos hiperparâmetros impacta o desempenho do modelo.
+
+**Parâmetro avaliado:**
+
+- **`C` (regularização):** controla o equilíbrio entre:
+  - **Margem ampla e tolerância a erros** (C pequeno)  
+  - **Margem estreita e penalização de erros** (C grande)
+
+**Processo:**
+
+1. Para cada valor de `C` em `[0.01, 0.1, 1, 10, 100]`:  
+   - Criamos um **SVM linear** com o valor atual de `C`.  
+   - Avaliamos o modelo usando **validação cruzada estratificada de 12 dobras**, preservando a proporção de classes benigno/maligno.  
+2. Calculamos a **média das acurácias** obtidas nas 12 dobras para cada valor de `C`.  
+
+**Objetivo final:**
+
+- Visualizar e comparar o impacto dos diferentes valores de `C` sobre a performance do modelo.  
+- Consolidar os resultados para compreender melhor como a regularização influencia a classificação no contexto do Breast Cancer Wisconsin Dataset.  
