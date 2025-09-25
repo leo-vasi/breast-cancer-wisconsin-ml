@@ -160,7 +160,7 @@ Esse detalhamento é importante em contextos médicos, pois nem todos os erros t
 Além da acurácia, também exibimos:
 - As **10 primeiras previsões** comparadas aos rótulos reais.
 - A **matriz de confusão**, que mostra a qualidade da classificação em cada classe.
-- 
+
 *[Breast Cancer] Linear — **Acurácia: 92.11%***
 
 ![Matriz de Confusão Kernel Linear](https://github.com/leo-vasi/breast-cancer-wisconsin-ml/blob/master/img/matriz_linear.png) 
@@ -209,6 +209,9 @@ Fluxo da etapa:
 
 Essa etapa mostra como a simples variação do kernel pode alterar o desempenho do SVM no diagnóstico de câncer de mama.
 
+**[Breast Cancer] Melhor kernel (Grid kernel):** linear
+* **Acurácia teste (melhor kernel):** 92.11%
+ 
 ![Matriz de Confusão Kernel StratifiedKFold-10](img/matriz_kernel_skf10.png)
 
 
