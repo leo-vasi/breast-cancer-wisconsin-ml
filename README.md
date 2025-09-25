@@ -336,3 +336,37 @@ O foco é observar como a variação dos hiperparâmetros impacta o desempenho d
 
 - Visualizar e comparar o impacto dos diferentes valores de `C` sobre a performance do modelo.  
 - Consolidar os resultados para compreender melhor como a regularização influencia a classificação no contexto do Breast Cancer Wisconsin Dataset.  
+
+
+# Conclusão
+
+**Resultados obtidos:**
+
+- Ambos os métodos (**StratifiedKFold-10** e **StratifiedKFold-12**) apresentaram **desempenho elevado**, com acurácias iguais (**92,11%**).  
+- A variação do número de dobras resultou em **valores muito próximos**, dependendo apenas da combinação de parâmetros testada.  
+- Ao variar o parâmetro de separação de classes (**C**), observou-se que o **KFold-12** apresentou, em média, **0,18% de acurácia superior**, diferença que não foi significativa do ponto de vista qualitativo.  
+- As **matrizes de confusão foram idênticas**, com **baixo número de falsos positivos e falsos negativos**.  
+- A diferença entre os métodos mostrou-se **mínima**, indicando que, para este conjunto de dados, a variação do número de dobras não alterou significativamente a performance do modelo.
+
+**Em suma:**
+
+- Tanto o **KFold-10** quanto o **KFold-12** mostraram-se **adequados para validação do classificador SVM** no dataset estudado.  
+- Embora a acurácia global tenha se mantido estável, é possível que em bases de dados **maiores ou mais complexas** a variação no número de dobras produza **diferenças mais relevantes**.  
+- A análise reforça a importância de **explicitar e justificar a escolha do esquema de validação cruzada** em aplicações biomédicas, mesmo quando as diferenças aparentes entre métodos são pequenas.
+
+| Método                | Kernel Ótimo | Acurácia | FP | FN |
+|----------------------|-------------|----------|----|----|
+| StratifiedKFold-10   | RBF         | 92.11%   | y  | x  |
+| StratifiedKFold-12   | RBF         | 92.29%   | y  | x  |
+
+
+## Colaboradores
+
+**Orientador:** Prof. Dr. Fabiano B. Menegidio
+  
+- [Anny Gabriely Souza do Nascimento](https://github.com/)  
+- [Antonio Luiz Lins Neto](https://github.com/)  
+- [Fábio Yuuki Saruwataru](https://github.com/)  
+- [Leonardo Valdir Silva](https://github.com/leo-vasi)  
+
+
