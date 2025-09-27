@@ -53,9 +53,10 @@ Utilizamos bibliotecas amplamente conhecidas. Cada uma tem um papel específico 
 - **`from sklearn.svm import SVC`**  
   - Importa o modelo de máquina de vetores de suporte para classificação (Support Vector Classifier).  
 
-- **`from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay`**  
+- **`from sklearn.metrics import accuracy_score, ConfusionMatrixDisplay, confusion_matrix`**  
   - `accuracy_score`: calcula a acurácia do modelo (proporção de acertos).  
   - `ConfusionMatrixDisplay`: exibe visualmente a matriz de confusão para facilitar a interpretação dos erros.  
+  - `confusion_matrix`: retorna a matriz de confusão em formato de array, permitindo extrair os valores brutos (TP, TN, FP, FN).  
 
 - **`import pandas as pd`**  
   - Biblioteca para manipulação e análise de dados em estruturas como DataFrames.  
@@ -73,7 +74,7 @@ Além dos imports, são definidas variáveis globais para manter consistência a
 A variável **`scale = 0`** foi configurada para facilitar a definição dos valores de `gamma` durante os testes.  
 A constante **`RANDOM_STATE = 42`** garante reprodutibilidade dos resultados, fixando a semente do gerador aleatório.  
 Por fim, são instanciados dois objetos de validação cruzada estratificada: **`cv_KFold10`** e **`cv_KFold12`**, que criam partições estratificadas em 10 e 12 folds, respectivamente, permitindo comparar o impacto do número de dobras na avaliação do modelo.  
- 
+
 ## 2. Upload e Visualização Inicial do Dataset  
 
 Este projeto utiliza o dataset *Breast Cancer Wisconsin*.  
@@ -289,7 +290,10 @@ O objetivo é verificar se **aumentar o número de partições** impacta a escol
 
 - **Acurácia:** proporção de classificações corretas no teste.  
 - **Matriz de confusão:** detalha verdadeiros positivos/negativos e erros, permitindo comparar desempenho entre **K=10** e **K=12**.
--   
+
+**[Breast Cancer] Melhor kernel (Grid kernel):** linear  
+* **Acurácia teste (melhor kernel):** 92.98%
+
 ![Matriz de Confusão Kernel StratifiedKFold-12](img/matriz_kernel_skf12.png)
 ---
 
