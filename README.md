@@ -255,6 +255,8 @@ Para cada valor de C em `[0.01, 0.1, 1, 10, 100]`:
 
 Esse teste mostra como a regularização afeta o equilíbrio entre **simplicidade do modelo** e **adaptação aos dados de treino**.
 
+![Gráfico da varredura C e Gamma](img/varredura_c_gamma_skf10.png)
+
 ---
 
 ### 11.2 Variação de C e Gamma no Kernel RBF  
@@ -272,7 +274,6 @@ Para cada combinação de C e gamma:
 
 Esse procedimento ajuda a visualizar **como o ajuste simultâneo de C e gamma influencia a capacidade do SVM RBF de generalizar**.
 
-![Gráfico da varredura C e Gamma](img/varredura_c_gamma_skf10.png)
 
 ## 12. StratifiedKFold (K=12) com GridSearchCV – Apenas Kernel (SKF-12)
 
@@ -343,6 +344,7 @@ O foco é observar como a variação dos hiperparâmetros impacta o desempenho d
 - Visualizar e comparar o impacto dos diferentes valores de `C` sobre a performance do modelo.  
 - Consolidar os resultados para compreender melhor como a regularização influencia a classificação no contexto do Breast Cancer Wisconsin Dataset.  
 
+![Gráfico da varredura C e Gamma](img/varredura_c_gamma_skf12.png)
 
 # Conclusão
 
