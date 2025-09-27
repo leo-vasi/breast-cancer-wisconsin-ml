@@ -214,7 +214,7 @@ Fluxo da etapa:
 5. **Predição e avaliação final:** aplicamos o modelo ao conjunto de teste, calculamos a **acurácia** e geramos a **matriz de confusão**.
 
 **[Breast Cancer] Melhor kernel (Grid kernel):** linear  
-* **Acurácia teste (melhor kernel):** 92.11%
+* **Acurácia teste (melhor kernel):** 92.98%
 
 ![Matriz de Confusão Kernel StratifiedKFold-10](img/matriz_kernel_skf10.png)
 
