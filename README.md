@@ -288,8 +288,9 @@ O objetivo é verificar se **aumentar o número de partições** impacta a escol
 **Avaliação após encontrar o melhor kernel:**
 
 - **Acurácia:** proporção de classificações corretas no teste.  
-- **Matriz de confusão:** detalha verdadeiros positivos/negativos e erros, permitindo comparar desempenho entre **K=10** e **K=12**.  
-
+- **Matriz de confusão:** detalha verdadeiros positivos/negativos e erros, permitindo comparar desempenho entre **K=10** e **K=12**.
+-   
+![Matriz de Confusão Kernel StratifiedKFold-12](img/matriz_kernel_skf12.png)
 ---
 
 ## 13. StratifiedKFold (K=12) com GridSearchCV – Kernel, C e Gamma (SKF-12) 
@@ -343,11 +344,10 @@ O foco é observar como a variação dos hiperparâmetros impacta o desempenho d
 
 **Resultados obtidos:**
 
-- Ambos os métodos (**StratifiedKFold-10** e **StratifiedKFold-12**) apresentaram **desempenho elevado**, com acurácias iguais (**92,11%**).  
-- A variação do número de dobras resultou em **valores muito próximos**, dependendo apenas da combinação de parâmetros testada.  
-- Ao variar o parâmetro de separação de classes (**C**), observou-se que o **KFold-12** apresentou, em média, **0,18% de acurácia superior**, diferença que não foi significativa do ponto de vista qualitativo.  
+- Ambos os métodos (**StratifiedKFold-10** e **StratifiedKFold-12**) apresentaram **desempenho elevado**, com acurácias **idênticas no conjunto de teste (92,98%)** ao utilizar GridSearch limitado ao **kernel linear**.  
+- A variação do número de dobras resultou em **médias internas ligeiramente diferentes** durante a validação cruzada, mas não impactou o resultado final no conjunto de teste.  
 - As **matrizes de confusão foram idênticas**, com **baixo número de falsos positivos e falsos negativos**.  
-- A diferença entre os métodos mostrou-se **mínima**, indicando que, para este conjunto de dados, a variação do número de dobras não alterou significativamente a performance do modelo.
+- Essa evidência indica que, para este conjunto de dados e esse modelo, a variação do número de dobras **não alterou significativamente** a performance do classificador.
 
 **Em suma:**
 
@@ -355,10 +355,13 @@ O foco é observar como a variação dos hiperparâmetros impacta o desempenho d
 - Embora a acurácia global tenha se mantido estável, é possível que em bases de dados **maiores ou mais complexas** a variação no número de dobras produza **diferenças mais relevantes**.  
 - A análise reforça a importância de **explicitar e justificar a escolha do esquema de validação cruzada** em aplicações biomédicas, mesmo quando as diferenças aparentes entre métodos são pequenas.
 
-| Método                | Kernel Ótimo | Acurácia | FP | FN |
-|----------------------|-------------|----------|----|----|
-| StratifiedKFold-10   | RBF         | 92.11%   | y  | x  |
-| StratifiedKFold-12   | RBF         | 92.29%   | y  | x  |
+| Método                | Kernel / Ajuste Atual | Acurácia Teste | FP | FN |
+|-----------------------|-----------------------|----------------|----|----|
+| StratifiedKFold-10     | Linear (Grid C)       | 92.98%          | 2  | 6  |
+| StratifiedKFold-12     | Linear (Grid C)       | 92.98%          | 2  | 6  |
+
+> *No conjunto de teste (114 amostras), o modelo acertou **70 casos benignos (TN)** e **36 casos malignos (TP)**.  
+> Houve apenas **2 falsos positivos (FP)**, benignos classificados como malignos e **6 falsos negativos (FN)**, malignos classificados como benignos, tudo totalizando **106 acertos e apenas 8 erros**.*
 
 
 ## Colaboradores
