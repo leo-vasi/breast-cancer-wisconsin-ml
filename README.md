@@ -1,12 +1,18 @@
 # Introdução
-Este projeto tem como objetivo investigar a performance do classificador **SVM (Support Vector Machine)** aplicado ao conjunto de dados **Breast Cancer Wisconsin**. A análise concentra-se no efeito das estratégias de validação cruzada estratificada sobre as estimativas de desempenho, comparando dois esquemas: **StratifiedKFold com K=10** e **StratifiedKFold com K=12**. O foco é verificar se a escolha do número de dobras altera de maneira significativa métricas como acurácia média e composição da matriz de confusão.
 
-O conjunto de dados utilizado possui **569 amostras e 30 atributos numéricos**, e foi obtido do repositório público Kaggle. No fluxo experimental, os dados foram pré-processados, incluindo a remoção de colunas não informativas e a codificação dos rótulos em formato binário, divididos em treino/teste com partição estratificada (80/20) e submetidos a ajuste de hiperparâmetros via **GridSearchCV** para combinações de **kernel**, **C** e **gamma**. Foram então comparadas as métricas médias obtidas com StratifiedKFold-10 e StratifiedKFold-12, registrando-se tanto as acurácias médias quanto as matrizes de confusão correspondentes.
+Este projeto tem como objetivo *investigar a performance* do classificador **SVM (Support Vector Machine)** aplicado ao conjunto de dados **Breast Cancer Wisconsin**.
 
-* Investigar a performance do classificador SVM aplicado ao conjunto de dados Breast Cancer Wisconsin.
-* Comparar diferentes estratégias de validação cruzada estratificada, avaliando o impacto do número de dobras (K=10 versus K=12) sobre as métricas de desempenho.
-* Ajustar hiperparâmetros do modelo SVM (kernel, C e gamma) utilizando GridSearchCV para identificar combinações mais eficazes.
-* Avaliar métricas de classificação como acurácia média, matriz de confusão e ROC-AUC para compreender o comportamento do modelo.
+A análise concentra-se no efeito das estratégias de **validação cruzada estratificada** sobre as estimativas de desempenho, comparando dois esquemas: **StratifiedKFold** com *K=10* e **StratifiedKFold** com *K=12*. O foco é verificar se a escolha do número de dobras *altera de maneira significativa* métricas como **acurácia média** e composição da **matriz de confusão**.
+
+O conjunto de dados utilizado possui **569 amostras** e **30 atributos numéricos**, e foi obtido do repositório público **Kaggle**. No fluxo experimental, os dados foram *pré-processados*, incluindo a *remoção de colunas não informativas* e a *codificação dos rótulos em formato binário*, divididos em **treino/teste** com partição estratificada *(80/20)* e submetidos a **ajuste de hiperparâmetros** via **GridSearchCV** para *identificar o melhor kernel (fluxo principal)*. Também foram realizados *testes opcionais* explorando combinações de **kernel, C e gamma** para fins de comparação. Foram então comparadas as **métricas médias** obtidas com **StratifiedKFold-10** e **StratifiedKFold-12**, registrando-se tanto as **acurácias médias** quanto as **matrizes de confusão** correspondentes.
+
+---
+* **Investigar a performance** do classificador **SVM** aplicado ao conjunto de dados **Breast Cancer Wisconsin**.
+* **Comparar diferentes estratégias** de *validação cruzada estratificada*, avaliando o impacto do número de dobras (*K=10* versus *K=12*) sobre as métricas de desempenho.
+* **Ajustar o hiperparâmetro** *kernel* do modelo **SVM** utilizando **GridSearchCV (fluxo principal)**.
+* **Opcionalmente, testar combinações** de *kernel, C e gamma* para analisar possíveis ganhos adicionais.
+* **Avaliar métricas de classificação** como **acurácia média**, **matriz de confusão** e **ROC-AUC** para compreender o comportamento do modelo.
+  
 ***
 ## Antes de começar
 
@@ -194,7 +200,7 @@ Essa análise ajuda a compreender como o uso de um kernel não-linear influencia
 * **Preditos (10):** ['B' 'M' 'B' 'B' 'B' 'B' 'B' 'B' 'B' 'B']
 * **Reais (10):** ['B' 'M' 'B' 'M' 'B' 'B' 'M' 'B' 'B' 'B']
 
-## 9. StratifiedKFold (K=10) com GridSearchCV – Apenas Kernel (SKF-10)  
+## 9. StratifiedKFold (K=10) com GridSearchCV – Apenas Kernel (SKF-10)
 
 Nesta etapa aplicamos **validação cruzada estratificada com 10 dobras (folds)** para avaliar diferentes kernels do SVM e escolher aquele com melhor desempenho médio.  
 O objetivo aqui é **testar apenas o parâmetro `kernel`** sem mexer nos demais hiperparâmetros (C e gamma), isolando o impacto da escolha do kernel.
@@ -202,39 +208,34 @@ O objetivo aqui é **testar apenas o parâmetro `kernel`** sem mexer nos demais 
 Fluxo da etapa:
 
 1. **Definição do modelo:** utilizamos `SVC(random_state=RANDOM_STATE)` como modelo base.  
-2. **Parâmetros testados:** `kernel` em `['linear', 'rbf', 'poly', 'sigmoid']`.  
-3. **Validação cruzada estratificada:** cada kernel é avaliado em **10 dobras**, preservando a proporção entre as classes benigno e maligno em cada partição.  
-4. **Escolha do melhor kernel:** o **GridSearchCV** seleciona automaticamente o kernel com maior média de acurácia nas dobras.  
-5. **Predição e avaliação final:** aplicamos o kernel selecionado ao conjunto de teste, calculamos a **acurácia** e geramos a **matriz de confusão** para entender os acertos e erros do modelo.
+2. **Parâmetros testados:** no notebook atual o GridSearch roda apenas com **kernel='linear'** variando C, mas a estrutura permite incluir outros kernels.  
+3. **Validação cruzada estratificada:** cada configuração é avaliada em **10 dobras**, preservando a proporção entre as classes benigno e maligno em cada partição.  
+4. **Escolha do melhor kernel:** o **GridSearchCV** seleciona automaticamente o kernel/C com maior média de acurácia nas dobras.  
+5. **Predição e avaliação final:** aplicamos o modelo ao conjunto de teste, calculamos a **acurácia** e geramos a **matriz de confusão**.
 
-Essa etapa mostra como a simples variação do kernel pode alterar o desempenho do SVM no diagnóstico de câncer de mama.
-
-**[Breast Cancer] Melhor kernel (Grid kernel):** linear
+**[Breast Cancer] Melhor kernel (Grid kernel):** linear  
 * **Acurácia teste (melhor kernel):** 92.11%
- 
+
 ![Matriz de Confusão Kernel StratifiedKFold-10](img/matriz_kernel_skf10.png)
 
-
+---
 ## 10. StratifiedKFold (K=10) com GridSearchCV – Kernel, C e Gamma (SKF-10)  
 
-Nesta etapa expandimos a busca para incluir não apenas o **kernel**, mas também os hiperparâmetros **C** e **gamma**, tornando a otimização mais completa.  
+Nesta etapa (opcional) expandimos a busca para incluir não apenas o **kernel**, mas também os hiperparâmetros **C** e **gamma**, tornando a otimização mais completa.  
 O objetivo é encontrar a combinação mais eficaz entre os três parâmetros utilizando **validação cruzada estratificada com 10 dobras (SKF-10)**.
 
 Fluxo da etapa:
 
 1. **Definição do modelo:** `SVC(random_state=RANDOM_STATE)` como base.  
 2. **Parâmetros testados:**  
-   - `kernel`: define o tipo de fronteira de decisão (`linear`, `rbf`, `poly`, `sigmoid`).  
-   - `C`: parâmetro de regularização; controla o **trade-off** entre margem mais ampla e penalização de erros.  
-   - `gamma`: controla a **curvatura** da fronteira de decisão para kernels não-lineares.  
-3. **Validação cruzada estratificada:** cada combinação é avaliada em **10 dobras**, mantendo a proporção entre classes benigno/maligno.  
-4. **Seleção da melhor combinação:** o GridSearchCV retorna automaticamente o conjunto de parâmetros com maior média de acurácia nas dobras.  
-5. **Predição e avaliação final:** aplicamos os melhores parâmetros no conjunto de teste, calculamos a **acurácia** e geramos a **matriz de confusão** para detalhar os acertos e erros do modelo.
+   - `kernel`: (`linear`, `rbf`, `poly`, `sigmoid`)  
+   - `C`: regularização.  
+   - `gamma`: curvatura da fronteira de decisão.  
+3. **Validação cruzada estratificada:** cada combinação é avaliada em **10 dobras**.  
+4. **Seleção da melhor combinação:** o GridSearchCV retorna o conjunto de parâmetros com maior média de acurácia.  
+5. **Predição e avaliação final:** aplicamos os melhores parâmetros no conjunto de teste.
 
-Essa etapa demonstra como ajustes simultâneos em kernel, C e gamma podem melhorar significativamente o desempenho do SVM.
-
-![Matriz de Confusão Kernel+C+Gamma StratifiedKFold-10](img/matriz_kernel_c_gamma_skf10.png) 
-
+---
 ## 11. Varredura de Parâmetros (C e Gamma) – SKF-10  
 
 Nesta etapa realizamos uma **análise sistemática dos hiperparâmetros** do SVM para entender seu impacto no desempenho do modelo, usando **validação cruzada estratificada de 10 dobras (SKF-10)**.
@@ -279,41 +280,41 @@ O objetivo é verificar se **aumentar o número de partições** impacta a escol
 
 **Resumo:**
 
-- **Objetivo:** avaliar se alterar o número de dobras (de 10 para 12) muda os resultados do GridSearch.  
+- **Objetivo:** avaliar se alterar o número de dobras (de 10 para 12) muda os resultados.  
 - **Modelo base:** `SVC(random_state=RANDOM_STATE)`  
-- **Kernels testados:** `linear`, `rbf`, `poly` e `sigmoid`  
-- **Validação cruzada:** cada kernel é avaliado em **12 dobras**, preservando a proporção de classes benigno/maligno.  
+- **Parâmetros testados:** no notebook atual, GridSearch roda apenas com **kernel='linear'** variando C, mas a estrutura permite incluir outros kernels.  
+- **Validação cruzada:** cada configuração é avaliada em **12 dobras**, preservando a proporção de classes benigno/maligno.  
 
 **Avaliação após encontrar o melhor kernel:**
 
 - **Acurácia:** proporção de classificações corretas no teste.  
-- **Matriz de confusão:** detalha verdadeiros positivos/negativos e erros, permitindo comparar o desempenho entre **K=10** e **K=12**.  
+- **Matriz de confusão:** detalha verdadeiros positivos/negativos e erros, permitindo comparar desempenho entre **K=10** e **K=12**.  
 
 ---
 
-## 13. StratifiedKFold (K=12) com GridSearchCV – Kernel, C e Gamma (SKF-12)
+## 13. StratifiedKFold (K=12) com GridSearchCV – Kernel, C e Gamma (SKF-12) 
 
-Nesta etapa aplicamos um **GridSearch completo**, agora utilizando **validação cruzada estratificada de 12 dobras (SKF-12)** para identificar a **melhor combinação de parâmetros** para o SVM.  
+Nesta etapa (opcional) aplicamos um **GridSearch completo**, agora utilizando **validação cruzada estratificada de 12 dobras (SKF-12)** para identificar a **melhor combinação de parâmetros** para o SVM.  
 O objetivo é avaliar se o **aumento do número de dobras (de 10 para 12)** altera as combinações ótimas e o desempenho obtido.
 
 **Parâmetros testados:**
 
-- **`kernel`**: define o tipo de fronteira de decisão (`linear`, `rbf`, `poly`, `sigmoid`)  
-- **`C`**: parâmetro de regularização, controla o **trade-off entre margem ampla e penalização de erros**  
-- **`gamma`**: influencia a **curvatura da fronteira de decisão** para kernels não-lineares  
+- `kernel`: (`linear`, `rbf`, `poly`, `sigmoid`)  
+- `C`: regularização.  
+- `gamma`: curvatura da fronteira de decisão.  
 
 **Processo:**
 
-- Cada combinação de **kernel**, **C** e **gamma** é avaliada em **12 dobras**, preservando a proporção de classes benigno/maligno em cada partição.  
+- Cada combinação de **kernel**, **C** e **gamma** é avaliada em **12 dobras**.  
 - O **GridSearchCV** identifica a **melhor combinação de parâmetros** com base na acurácia média das dobras.  
 - O modelo ajustado com essa combinação é aplicado ao conjunto de teste.  
 
 **Avaliação:**
 
 - **Acurácia no teste:** proporção de classificações corretas.  
-- **Matriz de confusão:** mostra a qualidade das previsões (verdadeiros positivos/negativos e erros), permitindo comparar resultados com o cenário **K=10**.  
+- **Matriz de confusão:** mostra a qualidade das previsões, permitindo comparar resultados com o cenário **K=10**.  
 
-
+---
 ## 14. Varredura de Parâmetros – StratifiedKFold (K=12)
 
 Por fim, realizamos uma **varredura sistemática dos parâmetros** utilizando **validação cruzada estratificada de 12 dobras (SKF-12)**, consolidando os resultados para análise final.  
