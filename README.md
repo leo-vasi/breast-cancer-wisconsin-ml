@@ -37,7 +37,7 @@ Outros serviços que também podem funcionar, mas não foram testados completame
 
 ***
 ## Fluxo de Trabalho do Modelo
-![alttext](AQUI_VAI_O_LINK_DO_DIAGRAMAraw=true)
+![alttext](img/pipeline_workflow.png)
 
 #  Organização do Notebook  
 
