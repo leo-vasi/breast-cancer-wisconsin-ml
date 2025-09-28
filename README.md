@@ -11,7 +11,7 @@ O conjunto de dados utilizado possui **569 amostras** e **30 atributos numérico
 * **Comparar diferentes estratégias** de *validação cruzada estratificada*, avaliando o impacto do número de dobras (*K=10* versus *K=12*) sobre as métricas de desempenho.
 * **Ajustar o hiperparâmetro** *kernel* do modelo **SVM** utilizando **GridSearchCV (fluxo principal)**.
 * **Opcionalmente, testar combinações** de *kernel, C e gamma* para analisar possíveis ganhos adicionais.
-* **Avaliar métricas de classificação** como **acurácia média**, **matriz de confusão** e **ROC-AUC** para compreender o comportamento do modelo.
+* **Avaliar métricas de classificação** como **acurácia média**, **matriz de confusão** para compreender o comportamento do modelo.
   
 ***
 ## Antes de começar
