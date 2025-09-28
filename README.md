@@ -27,11 +27,12 @@ Mesmo o arquvio ipynb estando neste repositório, recomendamos que você também
 
 Outros serviços que também podem funcionar, mas não foram testados completamente, além de que certas etapas como o upload do dataset não foram documentadas para estes serviços:
 
-* <a href="LINK_KAGGLE"><img src="https://kaggle.com/static/images/open-in-kaggle.svg" alt="Open in Kaggle" /></a>
+* <a href="https://www.kaggle.com/code/levasi/machine-learning-cv-sk10-sk12-summit-umc-2025
+"><img src="https://kaggle.com/static/images/open-in-kaggle.svg" alt="Open in Kaggle" /></a>
 
 * <a href="LINK_BINDER"><img src="https://mybinder.org/badge_logo.svg" alt="Launch binder" /></a>
 
-* <a href="LINK_DEEPNOTE"><img src="https://deepnote.com/buttons/launch-in-deepnote-small.svg" alt="Launch in Deepnote" /></a>
+* <a href="https://deepnote.com/workspace/FO1-e5658e40-7295-4237-93f4-97742df44b2b/project/Leonardo-Silvas-Untitled-project-04f0592c-e455-4120-9aed-86c7d3a3a5b8/notebook/MachineLearningCVSK10SK12SummitUMC2025-38733358508c485a9471509c7a981d61?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=04f0592c-e455-4120-9aed-86c7d3a3a5b8"><img src="https://deepnote.com/buttons/launch-in-deepnote-small.svg" alt="Launch in Deepnote" /></a>
 </details>
 
 ***
