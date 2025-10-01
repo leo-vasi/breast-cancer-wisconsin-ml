@@ -375,9 +375,9 @@ O foco é observar como a variação dos hiperparâmetros impacta o desempenho d
 
 **Orientador:** Prof. Dr. Fabiano B. Menegidio
   
-- [Anny Gabriely Souza do Nascimento](https://github.com/)  
-- [Antonio Luiz Lins Neto](https://github.com/)  
-- [Fábio Yuuki Saruwataru](https://github.com/)  
+- [Anny Gabriely Souza do Nascimento](https://www.linkedin.com/in/anny-gabriely-5233b8294)  
+- [Antonio Luiz Lins Neto](https://github.com/imLins)  
+- [Fábio Yuuki Saruwataru](https://github.com/FabioYS)  
 - [Leonardo Valdir Silva](https://github.com/leo-vasi)  
 
 
